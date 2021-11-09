@@ -1,6 +1,7 @@
 import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from commonClass import ErrorHandler
 import testcase
 
 class PythonOrgSearch(unittest.TestCase):
@@ -15,6 +16,7 @@ class PythonOrgSearch(unittest.TestCase):
 		testScnario.lp_purchase_process()
 
 	def tearDown(self):
+		ErrorHandler.assert_element(ErrorHandler.error_occured)
 		self.driver.close()
 
 if __name__ == "__main__":

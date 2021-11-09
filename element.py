@@ -108,24 +108,28 @@ class AssertEvent(object):
         self.driver = driver
         self.tc = unittest.TestCase()
 
-    # main assertion method
+    # main assertion methods
     def statement(self, obj = {}):
-        obj['log_status']   = True
+        obj['log_status'] = True
+
+        # halt process and raise error
+        raise_error = obj['raise_error'] if obj.get('raise_error') is not None and not obj['raise_error'] else True;
 
         # assertion type
-        assert_type         = obj['operator'] if obj.get('operator') is not None else "true";
+        assert_type = obj['operator'] if obj.get('operator') is not None else "equal";
 
-        # optiona message
-        option_message      = obj['option_message'] if obj.get('option_message') is not None else "..."
+        # option message
+        option_message = obj['message'] if obj.get('message') is not None else "..."
 
         # defined assert parameters
-        first_value         = ""
-        second_value        = ""
+        first_value = ""
+        second_value = ""
         if obj.get('value') is not None:
-            value_obj       = obj['value']
-            first_value     = value_obj[0] if 0 < len(value_obj) else ""
-            second_value    = value_obj[1] if 1 < len(value_obj) else ""
+            value_obj = obj['value']
+            first_value = value_obj[0] if 0 < len(value_obj) else ""
+            second_value = value_obj[1] if 1 < len(value_obj) else ""
 
+        # execute assert method
         try:
             match assert_type:
                 case "equal":
@@ -178,7 +182,8 @@ class AssertEvent(object):
 
         except AssertionError as asserterror:
             CommonExec.print_message(0, option_message, obj)
-            raise asserterror
+            if raise_error:
+                raise asserterror
 
 
 
