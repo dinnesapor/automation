@@ -30,12 +30,15 @@ class BasicEvent(object):
     # set value for input selection field
     def set_option_value(self, obj):
         try:
-            CommonExec.check_parameter(True, obj)
+            CommonExec.check_parameter(False, obj)
             element = WebDriverWait(self.driver, 10).until(
                 Condition.presence_of_element_located((CommonExec.get_selector(obj['selector']), obj['locator']))
             )
-            element= Select(element)
-            element.select_by_value(obj['value'])
+            element = Select(element)
+            if obj.get('value') is None or obj.get('value') == '':
+                element.select_by_index(1)
+            else:
+                element.select_by_value(obj['value'])
         except:
             CommonExec.print_message(0, "select option value", obj)
         finally:
