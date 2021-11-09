@@ -67,10 +67,10 @@ class CommonExec(object):
 
 			if status == 1 and allow_print:
 				if support_message not in ErrorHandler.error_log_string:
-					print("\033[32m" + "OK" + "\033[37m" + "\t: {}".format(support_message))
+					print("\033[32m" + "OK" + "\033[37m" + "\t: {}".format(support_message.encode('utf-8')))
 
 			else:
-				print("\033[31m" + "FAIL" + "\033[37m" + "\t: {}".format(support_message))
+				print("\033[31m" + "FAIL" + "\033[37m" + "\t: {}".format(support_message.encode('utf-8')))
 				ErrorHandler.error_log_string.append(support_message)
 
 				if not ErrorHandler.error_occured:
