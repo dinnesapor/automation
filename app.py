@@ -8,12 +8,14 @@ class PythonOrgSearch(unittest.TestCase):
 
 	def setUp(self):
 		service = Service("C:\Program Files (x86)\chromedriver.exe")
+		# webdriver.Chrome(service=service) | webdriver.Edge(service=service) | webdriver.Firefox(service=service) | webdriver.Safari(service=service)
 		self.driver = webdriver.Chrome(service=service)
 		self.driver.maximize_window()
 
+	# add "test" prefix on any method names that contains the testcases script (e.g. test_application)
 	def test_application(self):
-		testScnario = testcase.TestCaseProcess(self.driver)
-		testScnario.lp_purchase_process()
+		testScenario = testcase.TestCaseProcess(self.driver)
+		testScenario.lp_purchase_process()
 
 	def tearDown(self):
 		ErrorHandler.assert_element()
