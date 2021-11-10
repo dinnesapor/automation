@@ -16,7 +16,7 @@ class PythonOrgSearch(unittest.TestCase):
 		testScnario.lp_purchase_process()
 
 	def tearDown(self):
-		ErrorHandler.assert_element(ErrorHandler.error_occured)
+		ErrorHandler.assert_element()
 		self.driver.close()
 
 if __name__ == "__main__":

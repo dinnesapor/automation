@@ -2,6 +2,8 @@ import time
 from element import *
 from commonClass import *
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select
 
 class BasePage(object):
     def __init__(self, driver):
@@ -15,13 +17,14 @@ class TestCaseProcess(BasePage):
 	def lp_purchase_process(self):
 		# target page
 		self.driver.get("https://v2off55itlab05.web-store.jp/product-buy-form/LP-TEST-SCREEN")
-		driver = self.driver
+		
+		# element checking time
+		CommonExec.element_wait_time = 5
 
 		# easybuy_value
 		self.baseEvent.set_option_value({
 			"selector":"id",
 			"locator":"easybuy_value",
-			"value":"11_reg",
 			"log_status": True
 		})
 

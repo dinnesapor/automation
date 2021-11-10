@@ -16,7 +16,7 @@ class BasicEvent(object):
     def set_text_value(self, obj):
         try:
             CommonExec.check_parameter(True, obj)
-            element = WebDriverWait(self.driver, 10).until(
+            element = WebDriverWait(self.driver, CommonExec.element_wait_time).until(
                 Condition.presence_of_element_located((CommonExec.get_selector(obj['selector']), obj['locator']))
             )
             element.clear()
@@ -31,7 +31,7 @@ class BasicEvent(object):
     def set_option_value(self, obj):
         try:
             CommonExec.check_parameter(False, obj)
-            element = WebDriverWait(self.driver, 10).until(
+            element = WebDriverWait(self.driver, CommonExec.element_wait_time).until(
                 Condition.presence_of_element_located((CommonExec.get_selector(obj['selector']), obj['locator']))
             )
             element = Select(element)
@@ -48,7 +48,7 @@ class BasicEvent(object):
     def click_element(self, obj):
         try:
             CommonExec.check_parameter(False, obj)
-            element = WebDriverWait(self.driver, 10).until(
+            element = WebDriverWait(self.driver, CommonExec.element_wait_time).until(
                 Condition.presence_of_element_located((CommonExec.get_selector(obj['selector']), obj['locator']))
             )
             element.click()
@@ -61,7 +61,7 @@ class BasicEvent(object):
     def get_inner_text(self, obj):
         try:
             CommonExec.check_parameter(False, obj)
-            element = WebDriverWait(self.driver, 10).until(
+            element = WebDriverWait(self.driver, CommonExec.element_wait_time).until(
                 Condition.presence_of_element_located((CommonExec.get_selector(obj['selector']), obj['locator']))
             )
             return element.text
@@ -76,7 +76,7 @@ class BasicEvent(object):
     def get_attribute_text(self, obj):
         try:
             CommonExec.check_parameter(False, obj)
-            element = WebDriverWait(self.driver, 10).until(
+            element = WebDriverWait(self.driver, CommonExec.element_wait_time).until(
                 Condition.presence_of_element_located((CommonExec.get_selector(obj['selector']), obj['locator']))
             )
 

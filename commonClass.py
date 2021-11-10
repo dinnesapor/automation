@@ -1,4 +1,4 @@
-import time,sys
+import time,sys,os
 from datetime import date
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -7,10 +7,34 @@ from selenium.webdriver.support import expected_conditions as Condition
 class ErrorHandler(object):
 	error_occured = False
 	error_log_string = []
-	def assert_element(error_occured):
-		assert not error_occured, "An error occured when defining page element"
+	general_log_string = []
+
+	# verify testcase status
+	def assert_element():
+		ErrorHandler.create_log_file()
+		assert not ErrorHandler.error_occured, "An error occured when defining page element"
+
+	# create testcase log file
+	def create_log_file():
+		base_path 			= "logs/{}".format(date.today())
+		filename 			= time.strftime("%H%M%S", time.localtime()) + ".txt"
+		file_path 			= base_path + "/" + filename
+
+		if not os.path.exists(base_path):
+		    os.makedirs(base_path)
+
+		if not os.path.exists(file_path):
+			with open(file_path, 'w') as log:
+				log.write("Date: {} {}". format(date.today(), time.strftime("%H:%M:%S", time.localtime())))
+				log.write("\nTestcase Status: {}". format(("PASSED" if not ErrorHandler.error_occured else "FAILED")))
+				log.write("\n\nLog Details:")
+				for log_details in ErrorHandler.general_log_string:
+					log.write("\n{}".format(log_details))
 
 class CommonExec(object):
+
+	# web drive element checking time
+	element_wait_time = 10
 
 	# Specify element selector
 	def get_selector(selector):
@@ -63,17 +87,19 @@ class CommonExec(object):
 			allow_print = obj_param.get('log_status')
 
 		support_message = "{} {}".format(text, origin)
-		if allow_print:
 
-			if status == 1 and allow_print:
+		ErrorHandler.general_log_string.append("{} >>> {}".format(("Passed" if status == 1 else "Failed"), support_message))
+
+		if status == 1:
+			if allow_print:
 				if support_message not in ErrorHandler.error_log_string:
-					print("\033[32m" + "OK" + "\033[37m" + "\t: {}".format(support_message.encode('utf-8')))
+					print("\033[32m" + "Passed" + "\033[37m" + "\t: {}".format(support_message.encode('utf-8')))
+		else:
+			if allow_print:
+				print("\033[31m" + "Failed" + "\033[37m" + "\t: {}".format(support_message.encode('utf-8')))
 
-			else:
-				print("\033[31m" + "FAIL" + "\033[37m" + "\t: {}".format(support_message.encode('utf-8')))
-				ErrorHandler.error_log_string.append(support_message)
-
-				if not ErrorHandler.error_occured:
+			ErrorHandler.error_log_string.append(support_message)
+			if not ErrorHandler.error_occured:
 					ErrorHandler.error_occured = True
 
 	# contruct file directory path/name
