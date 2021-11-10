@@ -17,6 +17,11 @@ class PythonOrgSearch(unittest.TestCase):
 		testScenario = testcase.TestCaseProcess(self.driver)
 		testScenario.lp_purchase_process()
 
+	# testcase 2
+	def test_application_second(self):
+		testScenario = testcase.TestCaseProcess(self.driver)
+		testScenario.view_order_details()
+
 	def tearDown(self):
 		ErrorHandler.assert_element()
 		self.driver.close()

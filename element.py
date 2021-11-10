@@ -56,6 +56,20 @@ class BasicEvent(object):
         finally:
             CommonExec.print_message(1, "click element", obj)
 
+    # mouse over
+    def mouse_over_element(self, obj):
+        try:
+            action = ActionChains(self.driver) 
+            CommonExec.check_parameter(False, obj)
+            element = WebDriverWait(self.driver, CommonExec.element_wait_time).until(
+                Condition.presence_of_element_located((CommonExec.get_selector(obj['selector']), obj['locator']))
+            )
+            action.move_to_element(element).perform()
+        except:
+            CommonExec.print_message(0, "Hover element", obj)
+        finally:
+            CommonExec.print_message(1, "Hover element", obj)
+
     # get inner text label
     def get_inner_text(self, obj):
         try:
