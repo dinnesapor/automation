@@ -21,7 +21,6 @@ class BasicEvent(object):
             )
             element.clear()
             element.send_keys(obj['value'])
-            element.send_keys(Keys.RETURN)
         except:
             CommonExec.print_message(0, "input text value", obj)
         finally:
