@@ -4,8 +4,6 @@ from commonClass import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.action_chains import ActionChains
-
 
 class BasePage(object):
     def __init__(self, driver):
